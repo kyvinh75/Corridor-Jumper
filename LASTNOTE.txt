@@ -1,0 +1,48 @@
+self est une convention afin d'initialiser correctement les instances en Python
+Une instance est l'objet qui a pour type la classe et il peut prendre deux comportements et un état une classe est définit par class en Python
+c'est le fait de créer un objet à partir d'une base.
+
+
+
+je n'ai malheureusement pas réussi à redemensionner l'arrière-plan à la taille de la fenêtre ni à celle de l'écran 
+je n'ai pas réussi à impléménter un chronomètre ou un minuteur mais seule je les ai réussi.
+Je n'ai malheureusement pas réussi à faire sauter le personnage en le faisant déplacer dans l'axe y :/ mais cela fonctionne pour l'axe x
+
+Non fonctionnelle :
+marche isolée 
+Chronomètre
+Minuteur 
+Fond rouge
+Arrière-plan en plein écran (on peut modifier l'image manuellement mais c'est long)
+Modifier les fonds et la police
+Fonction sauter via l'axe Y
+
+ne marche pas même isolée :
+Niveau 2
+
+
+Bug actuel : 
+Lorsqu'on appuie sur l'icône quitter l'app ne se ferme pas du moins avce Python 3.1 sous XP
+
+
+Implémentation by KV :
+Masquage de la souris
+Player_pos_x  
+musique de fond , sa répétition à l'infini, 
+stopper la musique
+Crédits
+Saisie du nom du joueur usage de la fonction input 
+saisie de l'avis du joueur
+Contrôle ded la vitesse via la touche espace
+La vitesse augmente jusqu'à la vitesse 9 
+La vitesse se fige  mode ralentit 
+Correction grammaticale et orthographique
+
+
+
+
+L'IDLE de python un environnent de développement intégré, il permet d'éditer, ouvrir débugguer les fichiers Python c'est le logiciel de progrmmatiojn pour programmer.
+Le débogage permet par : - Le point d'arrêt d'didentifier les sources des d'erreurs 
+			 - Le mode pas à pas qui permet de voir l'éxécution progressivement ligne par ligne
+Ce processus de diagnostiquage permet de localiser et d'éliminer les erreurs, de les corriger et de mieux comprendre l'algorithme et le code du programme.
+Ainsi la demande d'aide est simplifiée car on connait la raison
