@@ -14,7 +14,7 @@ print ("Crédits : KY-VINH NGUYEN / LSUPERMAN735, ETIENNE BARBOSA, ARTHUR SOUILL
 print ("Crédits : KV , EB, AS")
 #Affichage de la fenêtre
 #Déclaration de la longueur et de la largeur afin de modifier plus rapidement by KV
-length =400 #Longueur attribuée à 400 pour être petite
+length = 400 #Longueur attribuée à 400 pour être petite
 width = 550#Largeur attribuée à 550
 window=pg.display.set_mode((length,width))
 info=pg.display.Info()
