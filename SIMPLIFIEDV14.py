@@ -140,13 +140,13 @@ print("\nNiveau completé à "+str(int(scrolling/100)) +"%")
 player_name=[] #Permettra d'attribuer un nom au joueur-KV
 player_satisfaction=[] #Permettra d'obtenir la satisfaction du joueur-KV 
 player_name=input("Nom du joueur : ")#Permet l'attribution du nom du joueur by KV
-print(player_name.capitalize())#Met en majuscule le premier charactère car c'est un nom propre 
+print("Merci"+player_name.capitalize())#Met en majuscule le premier charactère car c'est un nom propre 
 player_satisfaction =input("Alors à quel point ce jeu vous a plus un peu, beaucoup ou énormément : ")
 print("\nArrêt...")
 Tk().wm_withdraw()#Pour cacher la fenêtre principale-KV
 messagebox.showinfo("Redémarre le jeu", "OK")#permet d'afficher ce message via une boîte de dialogue-KV
 pg.mixer.music.stop() #Stoppe la musique-KV
 pygame.quit()#arrêt propre via pygame-KV
-quit()#arrête proprement le code-KV
+quit()#arrête proprement le code-KV
 sys.exit() #arrête via le système
 
