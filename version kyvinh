@@ -1,0 +1,137 @@
+import pygame, sys, random, tkinter #Tkinter : interface graphique, police, taille du texte
+from pygame.locals import *
+from tkinter import * 
+from tkinter import messagebox
+pygame.init()
+
+
+#Variables du jeu
+maintain=True #Maintiens le jeu ouvert bolllean
+scrolling=0 #A quel point le jeu défile, définit le score
+speed=1
+
+print("\nCeci est une version de développement et ne dois en aucun cas être considérée comme le produit final.\n")
+print ("Crédits : KY-VINH NGUYEN , ETIENNE BARBOSA, ARTHUR SOUILLE ")#Affiche les crédits 
+#Affichage de la fenêtre
+#Déclaration de la longueur et de la largeur afin de modifier plus rapidement 
+window=pygame.display.set_mode((400,550))
+info=pygame.display.Info()
+pygame.display.set_caption("Corridor Jumper") #définit le titre de la fenêtre
+
+#Chargements
+#   Tableaux dans lesquelles on stock les images
+background=[]
+player=[]
+obstacle=[]
+
+#Charger une musique de fond 
+pygame.mixer.init() #Permet d'initialiser le lecteur musicale
+pygame.mixer.music.load('data\music.mp3')#Permet de charger la musique SOMETHING ABOUT YOU de HAYDEN JAMES 
+pygame.mixer.music.set_volume(0.97) #Le volume est à 97%
+pygame.mixer.music.play(-1,0) #(Répétition, start) -1 permet de répéter la musique à l'infini et play permet de jouer la musique
+
+#   Boucles où l'on stocke les images dans les variables précédentes
+#       Backgrounds
+for i in range(0,1): #car on a 1 image en arrière-plan 
+    try:
+        print("Chargement de data/Back_"+str(i)+".png")
+        background.append(pygame.image.load("data/Back_"+str(i)+".png"))
+
+        
+    except:
+        print("Une erreur est survenue\nFermeture du programme...")
+        sys.exit()
+#       Player
+for i in range(0,1): # car on a 1 image de joueur 
+    try:
+        print("Chargement de data/Player_"+str(i)+".png")
+        player.append(pygame.image.load("data/Player_"+str(i)+".png"))
+    except:
+        print("Une erreur est survenue\nFermeture du programme...")
+        sys.exit()
+#       Obstacles
+for i in range(0,3): #car on a  3 images d'obstacle 
+    try:       
+        print("Chargement de data/Obstacle_"+str(i)+".png")
+        obstacle.append(pygame.image.load("data/Obstacle_"+str(i)+".png"))
+    except:
+        print("Une erreur est survenue\nFermeture du programme...")
+        sys.exit()
+
+print("\nEn cours...\n")
+print("Détails:")
+print("Facteur vitesse: "+str(speed))
+
+type_obstacle=[]
+pos_obstacle=[]
+offset_obstacle=[]
+generated=False #La position initiale des obstacle a-t-elle été générée?
+player_pos_x=180 #Position du joueur sur l'axe x
+
+#Boucle du jeu
+while maintain:
+
+
+    scrolling+=speed #Fait défiler le fond
+    window.blit(background[0],(0,scrolling-9450))#Fait afficher le fond
+
+    if generated==False: #Génère la position initiale des obstacles-AR
+        for i in range(0,5):
+            type_obstacle.append(random.randrange(0,3,1)) #Le type des obstacles (chaise ? extincteur ?)
+            pos_obstacle.append(random.randrange(130,231,50)) #La position des obstacles (dans quelles colonnes sont-ils?)
+            offset_obstacle.append(random.randrange(scrolling-40,scrolling-1000,-40)) #Mais randrange ne prend en charge que des ints
+        generated=True
+    for i in range(0,5): #Regarde si des obstacles sont hors du champs de vision-AR
+        if scrolling+offset_obstacle[i]>550:
+            offset_obstacle[i]=offset_obstacle[i]+random.randrange(-600,-2000,-40)  #Affiche les obstacles supplémentaires
+            pos_obstacle[i]=random.randrange(130,231,50)
+    for i in range(0,5): #Affiche les obstacles
+        window.blit(obstacle[type_obstacle[i]],(pos_obstacle[i],scrolling+offset_obstacle[i]))
+
+    window.blit(player[0],(player_pos_x,500)) #Affiche le joueur
+    for i in range(0,5): #Vérifie si le joueur marche sur un obstacle et arrête l'app si c'est le cas
+        if player_pos_x==pos_obstacle[i] and scrolling+offset_obstacle[i]==460:
+            maintain=False
+    
+    if scrolling/100>100: #Vérifie qu'on est pas à la fin du niveau
+        print("Gagné !".upper())# conversion en majuscule
+        maintain=False
+    
+    pygame.display.flip() #Met à jour la vue
+
+
+    for event in pygame.event.get():
+        if event.type==KEYDOWN and event.key==K_RIGHT: #Traite la flèche DROITE
+            if player_pos_x==230: #Restriction des mouvements
+                print("Déplacement à droite impossible.")
+            else:
+                player_pos_x+=50
+        elif event.type==KEYDOWN and event.key==K_LEFT: #Traite la flèche GAUCHE
+            if player_pos_x==130: #Restriction des mouvements
+                print("Déplacement à gauche impossible.")
+            else:
+                player_pos_x-=50
+        elif event.type==KEYDOWN and event.key==K_SPACE : #Traite la flèche ESPACE-KV
+            speed +=1
+            print (str(speed))
+            if speed == 4:#Donc la vitesse max est à 3 
+                speed=1
+            if event.type==QUIT: #Traite la fin du programme
+                maintain=False
+   
+    pygame.display.set_caption("Corridor Jumper - "+str(int(scrolling/100))+"%")
+
+
+print("\nNiveau completé à "+str(int(scrolling/100)) +"%")
+#AUTRES VARIABLES 
+player_name=[] #Permettra d'attribuer un nom au joueur
+player_name=input("Nom du joueur : ")#Permet l'attribution du nom du joueur 
+print("Merci "+player_name.capitalize())#Met en majuscule le premier charactère car c'est un nom propre 
+print("\nArrêt...")
+Tk().wm_withdraw()#Pour cacher la fenêtre principale
+messagebox.showinfo("Redémarre le jeu", "OK")#permet d'afficher ce message via une boîte de dialogue
+pygame.mixer.music.stop() #Stoppe la musique
+pygame.quit()#arrêt propre via pygame
+quit()#arrête proprement le code
+sys.exit() #arrête via le système
+
